@@ -1,0 +1,106 @@
+# Import necessary libraries
+from selenium.webdriver.edge.service import Service as EdgeService  # Import Edge service for Edge driver (not used in this code)
+from selenium.webdriver.common.keys import Keys  # For handling keyboard keys
+from selenium.webdriver.common.by import By  # For locating elements on the page
+from google.oauth2 import service_account  # For Google service account authentication
+from selenium.webdriver.support.ui import WebDriverWait  # For waiting until elements are loaded
+from selenium.webdriver.support import expected_conditions as EC  # For defining conditions to wait for
+from selenium.webdriver.chrome.options import Options  # For setting options to customize Chrome browser (not used)
+from selenium.webdriver.chrome.service import Service  # Import Chrome driver service
+from google.cloud import bigquery  # For interacting with Google BigQuery
+from selenium import webdriver  # For launching the Selenium WebDriver (in this case, Chrome)
+from bs4 import BeautifulSoup  # For parsing HTML (not used)
+from io import StringIO  # For handling string input/output (not used)
+import pandas_gbq as pg  # For exporting data to Google BigQuery using pandas
+import pandas as pd  # For data manipulation
+import numpy as np  # For numerical operations (not used here)
+import db_dtypes  # Custom library for handling database data types (not used here)
+import requests  # For making HTTP requests (not used here)
+import datetime  # For handling date and time (not used here)
+import socket  # For obtaining the local machine’s hostname and IP address
+import json  # For parsing JSON data
+import time  # For adding delays in the script execution
+import re  # For regular expressions (not used here)
+
+# Define the Google Sheets ID for extracting URLs and other data
+sheet_id = '1thUUyDMiVI7I4-nW-agMD5boOV8JD2BC4uc0h11kQuM'
+
+# Read data from the Google Sheets URL using pandas
+xls = pd.ExcelFile(f"https://docs.google.com/spreadsheets/d/{sheet_id}/export?format=xlsx")
+Url_List = pd.read_excel(xls, 'URL Input Sheet ')  # Load the sheet containing the URLs
+
+# Set the data frame for URLs to be scraped
+url_df = Url_List
+url_df['index'] = url_df.index  # Add a column for index
+url_df['Rand_Num'] = url_df.index.to_series().apply(lambda x: f"?{1000 + x}")  # Add a random number for URL uniqueness
+url_df['New_Url'] = url_df['Url'] + url_df['Rand_Num']  # Concatenate the base URL with the random number
+url_lstt = url_df.values  # Convert the DataFrame to a NumPy array for iteration
+
+data_df = pd.DataFrame()  # Initialize an empty DataFrame to store the scraped data
+failed_urls = []  # Initialize an empty list to store URLs that failed scraping
+
+# Initialize the WebDriver (Chrome in this case)
+driver_path = r'C:\Users\Maaz Shaikh\chromedriver-win64\chromedriver.exe'  # Path to the ChromeDriver executable
+service = Service(driver_path)  # Initialize the service for the ChromeDriver
+driver = webdriver.Chrome(service=service)  # Start the Chrome browser
+
+# Iterate through each URL and scrape the price based on the source
+for i in url_lstt:
+    Price = None  # Initialize the price as None for each URL
+
+    # If the source is 'Tatacliq', scrape the price
+    if i[2] == "Tatacliq":
+        try:
+            driver.get(i[5])  # Navigate to the URL
+            time.sleep(2)  # Wait for the page to load
+            text_field = driver.find_element(By.XPATH, '//*[@id="BPDT"]/div[1]/div[2]/div[1]/div[1]/h3')  # Find the price element by XPath
+            Price = text_field.text  # Get the price text
+        except:
+            try:
+                driver.get(i[5])  # Try loading the URL again
+                time.sleep(2)
+                text_field = driver.find_element(By.XPATH, '//*[@id="app"]/div[2]/div/div/div[1]/div[2]/div[1]/div[1]/div[2]') 
+                Price = text_field.text
+            except:
+                failed_urls.append(i[1])  # If scraping fails, add the URL to the failed list
+
+    # Similar scraping logic for other sources: Amazon, Flipkart, Ajio, Myntra
+
+    elif i[2] == "Amazon":
+        try:
+            driver.get(i[5])
+            time.sleep(2)
+            text_field = driver.find_element(By.XPATH, '//span[text()=" Currently unavailable. "]')  # Check if the item is unavailable
+            Price = text_field.text
+        except:
+            try:
+                driver.get(i[5])
+                time.sleep(2)
+                text_field = driver.find_element(By.XPATH, '(//span[@class="a-price-whole"])[1]')  # Scrape the price
+                Price = text_field.text
+            except:
+                failed_urls.append(i[1])  # Add failed URL to list
+
+    # Scraping logic for Flipkart, Ajio, and Myntra (similar to above)
+    # If any of these fail, they are added to the 'failed_urls' list
+
+    else:
+        print("Error: Unsupported source")  # Handle cases where the source is not recognized
+        continue  # Skip to the next iteration if the source is unsupported
+
+    # Store the scraped data into a dictionary
+    dictt = {
+        "Sr_No": i[3],  # Serial number
+        "Brand": i[0],  # Brand name
+        "Url": i[1],  # URL of the product
+        "Price": Price,  # Scraped price
+        "Source": i[2]  # Source (e.g., Amazon, Flipkart)
+    }
+
+    # Convert the dictionary to a DataFrame and append it to the main DataFrame
+    df = pd.DataFrame(dictt, index=[0])
+    data_df = pd.concat([data_df, df], axis=0)
+
+# Close the WebDriver when done
+driver.quit()
+
