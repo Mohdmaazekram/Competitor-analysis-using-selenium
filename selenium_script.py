@@ -104,3 +104,38 @@ for i in url_lstt:
 # Close the WebDriver when done
 driver.quit()
 
+# Google Sheets credentials for authentication
+# credentials_dict = {
+#   "type": "service_account",
+#   "project_id": "maazgsheet",
+#   "private_key_id": "de41abe0f595f991ffe9f3dfa9b443a91c8a4e64",
+#   "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCtrGQjJM/zbRlU\nTMuSOK4K6X+K3Y2+NNJbYsF2+n1D5FEsC0Smwxja/5tyhiGT8tqp3B2jH2+YSOT2\nK0MerKvwVlCo/qyA0jTU+bBCnR1rX9Pz8j3qZtqeDz/+LfMKUeKDiOFmpCGoIQ/D\nei34HrMTHaB1d+PIBmQM9HRf7A9mbfiYHTpSBO/KkQQlmaXzuAc6OoXloNVPowft\n2DXsfNfQVzVF14alvocCRyRyljWSOWKgNcZkVlSonIMLpJYvP5IB4tEfnKXXHUxh\n+kaEXz1XsR2fT67Qn+eAAxmg9meqdj+oXswByv985BxjK3zQ7ffMfNuMQ9j35pzd\nPLUR5m3TAgMBAAECggEAJbE99HCnXzYE4spd/iimAUFHCIzoF+lf5CyNP3TC3gq9\n4Ti62BSMnu8Nvi/FNtZkxau7lO0cK6laY+DkytH/6QPasqq/JqA4jiZ4riRqP6UH\nG7Et5eMXvGkj4tb3Ify+k/yPqtahZVtzj+HC+1AyXko2SnhQK9fTPAqL/Ut+1iRZ\nSUefVb8lvFhZFo/L18nSg0DzfRxEkm0A3gAAqDCRoqmSv7f873YnHDogt2Mna9eO\n3eRF5iZvMDjvNXn/nowfRzW1C21m7T6IOleGYYnh4raqSOFp9eOMchLCMK3xeNCP\nfyuu/SR0SxmfQHPFuFpCHeX3eJDUCr7gQYPmBWRSDQKBgQDc43IHITLHKHByZGOu\nj2S+ha12RWXsflG4eeSHExcpCG2rgyr1YLH3dcTvK/kFZdkArYi3snFYvDfWYQFK\nsEz6yB80FOcMuEb62+DK0ExYL7MLGz7Dc/KbJO7nQEnxNG1DTtZMJHHghguQ0f7G\nyz9fmrTLE4ZMjxQCksjhr4C7nwKBgQDJR6LdWYrnSARN2TRpRm+gRBtVefzpJapq\nQu+Fxf/30G5Ez/h7W4ujFEsLSQvPR3SXThilgTY7T5bRt8OSwnkkCfzX/jzJXxnk\n1XfF0dIFdirjac2JStlxOShCn04/WrjTB8EZ/OjJAxF8WR5F8asO8empIiLE+iAF\n0Kwv33GhTQKBgC8eZYiX0FkjizkbqRfnhroNkf8UtrVIDO6pMdKOg/ZA0gQwKs3F\nHrGG8ceDPc+k9jFq0ys8aWlgXRjiAICKMyGb5uwZOWBBPwLsPHuHC4IUSsEnwq+2\n4B2wNzYlRKCralNdUeFUNOaMMZNm+E43tQET41UeiRtzufUCks9xvKhJAoGBAI/o\nuQg7wjV0Zydl2bQ/WQYkS8rEalAjzwEklG53z3hWPNDURRulq2PQ2YrbEieENlcL\nzlFe3fBwCiwtkBY5FzXuMioYK0vqw++5tGXqi5e+EhIAjqTPsEHklOV1UxO3AJhZ\nXfX/vkwh9nmKmjt1+1C3I9H6hxOApi6iMMoVnv+tAoGAb7JCjO51F4L7v+Wtbj4F\npzOzGUWJANTbP801dEPGlxK7uu1rojTpfwzrvJrwGbnjpJmih4lrLHxjxYK1rGV2\nzo9GdjLcKFdUnmoKYX2eDHDNCA/WFrBIinIaXF7osHTJrpfcUuufrPoPg57sSRyo\nVFOyPnRXkhoDfcJJMdLOd/g=\n-----END PRIVATE KEY-----\n",
+#   "client_email": "maazgsheet@maazgsheet.iam.gserviceaccount.com",
+#   "client_id": "111090250500905014979",
+#   "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+#   "token_uri": "https://oauth2.googleapis.com/token",
+#   "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+#   "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/maazgsheet%40maazgsheet.iam.gserviceaccount.com",
+#   "universe_domain": "googleapis.com"
+# }
+
+# # Use the provided credentials to authenticate and access Google Sheets
+# credentials = ServiceAccountCredentials.from_json_keyfile_dict(
+#     credentials_dict,
+#     ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
+# )
+# gc = gspread.authorize(credentials)  # Authorize with Google Sheets API
+
+# # Open the Google Sheet by key
+# sheet = gc.open_by_key('1d8JO72rUfzAPxIo7swt0DuSrNWdeXyJZosssZWHSyJw')  # Use the sheet ID
+
+# # Select the first worksheet
+# worksheet = sheet.get_worksheet(0)
+
+# # Convert the DataFrame into a list format for updating Google Sheets
+# data_as_list = data_dff.values.tolist()
+
+# # Update the Google Sheet with the DataFrame data
+# worksheet.update([data_dff.columns.values.tolist()] + data_as_list)
+
+# # print("Data successfully added to Google Sheets!")  # Confirmation message
