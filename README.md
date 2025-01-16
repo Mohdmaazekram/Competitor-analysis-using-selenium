@@ -2,7 +2,8 @@
 
 I used Selenium with Python to automate data extraction from various websites, providing the company with insights into competitor pricing strategies. This information was crucial for developing a competitive strategy and increased order growth.
 
-***Instructions for Setting Up a Python Script with Task Scheduler***
+**Instructions for Setting Up a Python Script with Task Scheduler**
+
 
 **1. Create a Folder:**
 
