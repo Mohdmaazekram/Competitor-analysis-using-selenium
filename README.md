@@ -1,6 +1,16 @@
-# Scraping-with-selenium
+**Project Details : Automated Web Scraping & ETL for Competitor Pricing Analysis**
 
-I used Selenium with Python to automate data extraction from various websites, providing the company with insights into competitor pricing strategies. This information was crucial for developing a competitive strategy and increased order growth.
+In this project, I implemented an automated ETL **(Extract, Transform, Load) pipeline to streamline competitor pricing analysis using Python, Selenium, BigQuery, and Looker Studio.**
+
+* **Extract :** I used Selenium with Python to scrape pricing and product data from multiple competitor websites. This automated data extraction replaced manual efforts and ensured real-time access to updated competitor information.
+
+* **Transform :** After extraction, I performed data cleaning, formatting, and schema design within BigQuery to ensure consistency and usability. This step included handling missing values, normalizing data formats, and defining proper field types and table structures.
+
+* **Load :** The cleaned and structured data was loaded into a BigQuery table, which I scheduled to automatically append new data daily through a scheduled job, ensuring continuous updates with minimal manual intervention.
+
+Finally, I built a dynamic dashboard in **Looker Studio** connected to the **BigQuery** table. This dashboard provided real-time visualization and insights into **competitor pricing trends**, helping the business make informed pricing decisions and stay competitive in the market.
+
+This project showcases how automation and data engineering practices can be combined to create an end-to-end solution for data-driven strategy and decision-making.
 
 **Instructions for Setting Up a Python Script with Task Scheduler**
 
