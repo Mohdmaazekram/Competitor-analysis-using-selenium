@@ -10,7 +10,10 @@ In this project, I implemented an automated ETL **(Extract, Transform, Load) pip
 
 Finally, I built a dynamic dashboard in **Looker Studio** connected to the **BigQuery** table. This dashboard provided real-time visualization and insights into **competitor pricing trends**, helping the business make informed pricing decisions and stay competitive in the market.
 
-This project showcases how automation and data engineering practices can be combined to create an end-to-end solution for data-driven strategy and decision-making.
+This project showcases how automation and data engineering practices can be combined to create an end-to-end solution for data-driven strategy and decision-making.<br><br>
+
+---
+
 
 **Instructions for Setting Up a Python Script with Task Scheduler**
 
