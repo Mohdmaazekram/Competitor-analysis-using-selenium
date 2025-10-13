@@ -13,6 +13,16 @@
 #    - Profile 1
 #    - Profile 2
 
+# 4. Create New Folder : SelniumChromeProfile
+    Under the Folder Create File Name : MyProfile.
+    Under MyProfile Copy & Paste Default All File.
+    Then paste That Path into Your Python Code.
+    For eg : # Specify the full path to the Chrome user data directory
+            options.add_argument(r"--user-data-dir=C:\Users\maaz.shaikh\OneDrive - cequitysolutions.com\SeleniumChromeProfiles")  # Path to your Chrome user data folder
+            
+            # Specify the specific profile to use (replace "MyProfile" with your actual profile name)
+            options.add_argument(r"--profile-directory=MyProfile")  # Your profile name
+
 # 'Default' = your main Chrome profile (if you’ve never created multiple profiles).
 # If you use multiple profiles, open Chrome → click profile picture → “Manage profiles” → hover over profile → click '...' to see folder name.
 
